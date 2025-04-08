@@ -228,11 +228,9 @@ export default function KontigoApp() {
   };
 
   const handleDeletePress = () => {
-    let newAmount = 0;
     let newInputAmount = "0";
     if (inputAmount.length > 1) {
       newInputAmount = inputAmount.slice(0, -1);
-      newAmount = Number.parseInt(newInputAmount);
     }
     setInputAmount(newInputAmount);
   };

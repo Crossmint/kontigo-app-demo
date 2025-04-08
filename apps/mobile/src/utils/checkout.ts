@@ -77,9 +77,11 @@ export const generateCheckoutUrl = async (
     locale: options.locale,
     orderId: order.order.orderId,
     clientSecret: order.clientSecret,
+    recipient: JSON.stringify(options.recipient),
     payment: JSON.stringify(options.payment),
     appearance: JSON.stringify(options.appearance),
     sdkMetadata: JSON.stringify(sdkMetadata),
+    lineItems: JSON.stringify(options.lineItems),
   });
 
   return `${baseUrl}?${params.toString()}`;
