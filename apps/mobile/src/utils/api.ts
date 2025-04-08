@@ -1,13 +1,12 @@
-import { apiKey, ordersBaseUrl } from "@/lib/config";
-import type { OrderRequest, OrderResponse } from "@/lib/types";
+import type { OrderRequest, OrderResponse } from "@/src/types/checkout";
+import { apiUrl } from "@/src/utils/config";
 
 export const createOrder = async (
   orderData: OrderRequest
 ): Promise<OrderResponse> => {
-  const response = await fetch(ordersBaseUrl, {
+  const response = await fetch(`${apiUrl}orders`, {
     method: "POST",
     headers: {
-      "X-API-KEY": apiKey,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(orderData),

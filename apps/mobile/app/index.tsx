@@ -4,10 +4,12 @@ import { useState } from "react";
 import { WebView } from "react-native-webview";
 import { Ionicons } from "@expo/vector-icons";
 import { userAgent } from "@/src/utils/userAgent";
+import { CheckoutOptions } from "@/src/types/checkout";
 import {
-  buildCrossmintCheckoutURL,
-  type CheckoutOptions,
+  defaultCheckoutOptions,
+  generateCheckoutUrl,
 } from "@/src/utils/checkout";
+import { useQuery } from "@tanstack/react-query";
 
 interface AmountViewProps {
   inputAmount: string;
@@ -183,82 +185,32 @@ export default function KontigoApp() {
     "amount"
   );
   const [inputAmount, setInputAmount] = useState("100");
-  const [checkoutOptions, setCheckoutOptions] = useState<CheckoutOptions>({
-    locale: "es-ES",
-    appearance: {
-      variables: {
-        colors: {
-          // textPrimary: "#FA7500",
-          // textSecondary: "#FA7500",
-          accent: "#FA7500",
-        },
-      },
-      rules: {
-        PrimaryButton: {
-          colors: {
-            background: "#FA7500",
-          },
-          hover: {
-            colors: {
-              background: "#FA7500",
-            },
-          },
-        },
-        ReceiptEmailInput: {
-          display: "hidden",
-        },
-        DestinationInput: {
-          display: "hidden",
-        },
-      },
-    },
-    // recipient: { walletAddress: "0xa064b2E2B6f9CEaC2c60a81369aeC35C0FBe467F" },
-    recipient: {
-      walletAddress: "EbXL4e6XgbcC7s33cD5EZtyn5nixRDsieBjPQB7zf448",
-    },
-    lineItems: {
-      // tokenLocator:
-      //   "base:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-      // tokenLocator: "solana:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      tokenLocator: "solana:6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
-      executionParameters: {
-        mode: "exact-in",
-        amount: "100",
-        maxSlippageBps: "500",
-      },
-    },
-    payment: {
-      crypto: {
-        enabled: false,
-      },
-      fiat: {
-        enabled: true,
-      },
-      defaultMethod: "fiat",
-      receiptEmail: "robin@crossmint.com",
-    },
-  });
 
-  const [uri, setUri] = useState<string>(
-    buildCrossmintCheckoutURL(checkoutOptions)
-  );
+  const { data: uri } = useQuery({
+    queryKey: ["checkout", inputAmount],
+    queryFn: async () => {
+      if (!inputAmount) {
+        return null;
+      }
+
+      return generateCheckoutUrl({
+        ...defaultCheckoutOptions,
+        lineItems: {
+          ...defaultCheckoutOptions.lineItems,
+          executionParameters: {
+            ...defaultCheckoutOptions.lineItems.executionParameters,
+            amount: inputAmount,
+          },
+        },
+      });
+    },
+    enabled: !!inputAmount,
+  });
 
   console.log({ uri });
 
   const handleSelectAmount = (amount: number) => {
     setInputAmount(amount.toString());
-    const newOptions = {
-      ...checkoutOptions,
-      lineItems: {
-        ...checkoutOptions.lineItems,
-        executionParameters: {
-          ...checkoutOptions.lineItems.executionParameters,
-          amount: amount.toString(),
-        },
-      },
-    };
-    setCheckoutOptions(newOptions);
-    setUri(buildCrossmintCheckoutURL(newOptions));
   };
 
   const handlePayNow = () => {
@@ -273,20 +225,6 @@ export default function KontigoApp() {
       newInputAmount = inputAmount + num;
     }
     setInputAmount(newInputAmount);
-
-    const newAmount = Number.parseInt(newInputAmount);
-    const newOptions = {
-      ...checkoutOptions,
-      lineItems: {
-        ...checkoutOptions.lineItems,
-        executionParameters: {
-          ...checkoutOptions.lineItems.executionParameters,
-          amount: newAmount.toString(),
-        },
-      },
-    };
-    setCheckoutOptions(newOptions);
-    setUri(buildCrossmintCheckoutURL(newOptions));
   };
 
   const handleDeletePress = () => {
@@ -297,22 +235,9 @@ export default function KontigoApp() {
       newAmount = Number.parseInt(newInputAmount);
     }
     setInputAmount(newInputAmount);
-
-    const newOptions = {
-      ...checkoutOptions,
-      lineItems: {
-        ...checkoutOptions.lineItems,
-        executionParameters: {
-          ...checkoutOptions.lineItems.executionParameters,
-          amount: newAmount.toString(),
-        },
-      },
-    };
-    setCheckoutOptions(newOptions);
-    setUri(buildCrossmintCheckoutURL(newOptions));
   };
 
-  return currentView === "amount" ? (
+  return currentView === "amount" || !uri ? (
     <AmountView
       inputAmount={inputAmount}
       onSelectAmount={handleSelectAmount}

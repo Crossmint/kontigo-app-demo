@@ -1,52 +1,86 @@
-import { checkoutBaseUrl, sdkMetadata } from "@/src/utils/config";
+import type { CheckoutOptions } from "@/src/types/checkout";
+import { createOrder } from "@/src/utils/api";
+import {
+  checkoutProdBaseUrl,
+  checkoutStagingBaseUrl,
+  sdkMetadata,
+} from "@/src/utils/config";
 
-export interface Appearance {
-  variables?: Record<string, unknown>;
-  rules?: Record<string, unknown>;
-}
+export const defaultCheckoutOptions: CheckoutOptions = {
+  locale: "es-ES",
+  appearance: {
+    variables: {
+      colors: {
+        accent: "#FA7500",
+      },
+    },
+    rules: {
+      PrimaryButton: {
+        colors: {
+          background: "#FA7500",
+        },
+        hover: {
+          colors: {
+            background: "#FA7500",
+          },
+        },
+      },
+      ReceiptEmailInput: {
+        display: "hidden",
+      },
+      DestinationInput: {
+        display: "hidden",
+      },
+    },
+  },
+  recipient: {
+    walletAddress: "EbXL4e6XgbcC7s33cD5EZtyn5nixRDsieBjPQB7zf448",
+  },
+  lineItems: {
+    tokenLocator: "solana:6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
+    executionParameters: {
+      mode: "exact-in",
+      amount: "100",
+      maxSlippageBps: "500",
+    },
+  },
+  payment: {
+    crypto: {
+      enabled: false,
+    },
+    fiat: {
+      enabled: true,
+    },
+    defaultMethod: "fiat",
+    receiptEmail: "robin@crossmint.com",
+  },
+};
 
-export interface Recipient {
-  walletAddress: string;
-}
+export const generateCheckoutUrl = async (
+  options: CheckoutOptions
+): Promise<string> => {
+  const order = await createOrder({
+    recipient: options.recipient,
+    lineItems: options.lineItems,
+    payment: {
+      method: "checkoutcom-flow",
+      receiptEmail: options.payment.receiptEmail,
+    },
+  });
 
-export interface LineItems {
-  tokenLocator: string;
-  executionParameters: {
-    mode: string;
-    amount: string;
-    maxSlippageBps: string;
-  };
-}
+  const baseUrl =
+    order.environment === "production"
+      ? checkoutProdBaseUrl
+      : checkoutStagingBaseUrl;
 
-export interface Payment {
-  crypto: {
-    enabled: boolean;
-  };
-  fiat: {
-    enabled: boolean;
-  };
-  defaultMethod: "fiat" | "crypto";
-  receiptEmail: string;
-}
+  const params = new URLSearchParams({
+    locale: options.locale,
+    orderId: order.order.orderId,
+    clientSecret: order.clientSecret,
+    payment: JSON.stringify(options.payment),
+    appearance: JSON.stringify(options.appearance),
+    sdkMetadata: JSON.stringify(sdkMetadata),
+  });
 
-export interface CheckoutOptions {
-  appearance: Appearance;
-  recipient: Recipient;
-  lineItems: LineItems;
-  payment: Payment;
-  locale: string;
-}
-
-export const buildCrossmintCheckoutURL = (options: CheckoutOptions): string => {
-  const params = new URLSearchParams();
-
-  params.set("locale", options.locale);
-  params.set("payment", JSON.stringify(options.payment));
-  params.set("lineItems", JSON.stringify(options.lineItems));
-  params.set("recipient", JSON.stringify(options.recipient));
-  params.set("appearance", JSON.stringify(options.appearance));
-  params.set("apiKey", "");
-  params.set("sdkMetadata", JSON.stringify(sdkMetadata));
-
-  return `${checkoutBaseUrl}?${params.toString()}`;
+  return `${baseUrl}?${params.toString()}`;
 };
