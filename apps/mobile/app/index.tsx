@@ -184,7 +184,7 @@ export default function KontigoApp() {
   const [currentView, setCurrentView] = useState<"amount" | "webview">(
     "amount"
   );
-  const [inputAmount, setInputAmount] = useState("100");
+  const [inputAmount, setInputAmount] = useState("1");
 
   const { data: uri } = useQuery({
     queryKey: ["checkout", inputAmount],

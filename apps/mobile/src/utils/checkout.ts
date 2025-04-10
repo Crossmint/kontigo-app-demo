@@ -34,13 +34,14 @@ export const defaultCheckoutOptions: CheckoutOptions = {
     },
   },
   recipient: {
-    walletAddress: "EbXL4e6XgbcC7s33cD5EZtyn5nixRDsieBjPQB7zf448",
+    walletAddress: "0x188554D8Db23AB47e07f61c427Acd4FE1dd6dFf7",
   },
   lineItems: {
-    tokenLocator: "solana:6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
+    tokenLocator:
+      "base:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
     executionParameters: {
       mode: "exact-in",
-      amount: "100",
+      amount: "1",
       maxSlippageBps: "500",
     },
   },
