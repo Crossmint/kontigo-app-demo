@@ -184,7 +184,7 @@ export default function KontigoApp() {
   const [currentView, setCurrentView] = useState<"amount" | "webview">(
     "amount"
   );
-  const [inputAmount, setInputAmount] = useState("100");
+  const [inputAmount, setInputAmount] = useState("1");
 
   const { data: uri } = useQuery({
     queryKey: ["checkout", inputAmount],
@@ -228,11 +228,9 @@ export default function KontigoApp() {
   };
 
   const handleDeletePress = () => {
-    let newAmount = 0;
     let newInputAmount = "0";
     if (inputAmount.length > 1) {
       newInputAmount = inputAmount.slice(0, -1);
-      newAmount = Number.parseInt(newInputAmount);
     }
     setInputAmount(newInputAmount);
   };
