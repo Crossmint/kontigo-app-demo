@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "declaration": true,
     "outDir": "./dist",
     "baseUrl": "./src",
@@ -14,4 +15,4 @@
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
-} 
+}

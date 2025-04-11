@@ -12,4 +12,14 @@ export type {
 } from "./types/checkout";
 
 // Export all functions and constants
-export * from "./utils";
+export {
+  defaultCheckoutOptions,
+  generateCheckoutUrl,
+  createOrder,
+} from "./utils/checkout";
+
+export {
+  checkoutProdBaseUrl,
+  checkoutStagingBaseUrl,
+  sdkMetadata,
+} from "./utils/config";
