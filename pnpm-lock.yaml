@@ -21,48 +21,14 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
 
-  apps/api:
-    dependencies:
-      next:
-        specifier: 15.2.4
-        version: 15.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: 'catalog:'
-        version: 18.3.1
-      react-dom:
-        specifier: 'catalog:'
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@eslint/eslintrc':
-        specifier: ^3
-        version: 3.3.1
-      '@tailwindcss/postcss':
-        specifier: ^4
-        version: 4.0.17
-      '@types/node':
-        specifier: ^20
-        version: 20.17.28
-      '@types/react':
-        specifier: ^19
-        version: 19.0.12
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.0.4(@types/react@19.0.12)
-      eslint:
-        specifier: ^9
-        version: 9.23.0(jiti@2.4.2)
-      eslint-config-next:
-        specifier: 15.2.4
-        version: 15.2.4(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
-      tailwindcss:
-        specifier: ^4
-        version: 4.0.17
-
   apps/mobile:
     dependencies:
       '@expo/vector-icons':
         specifier: ^14.0.2
         version: 14.0.4
+      '@kontigo/common':
+        specifier: workspace:*
+        version: link:../../packages/common
       '@react-navigation/bottom-tabs':
         specifier: ^7.3.3
         version: 7.3.3(4e5m6rlrs2favqvw4c2qi5fcii)
@@ -166,6 +132,48 @@ importers:
       react-test-renderer:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
+
+  apps/web:
+    dependencies:
+      '@kontigo/common':
+        specifier: workspace:*
+        version: link:../../packages/common
+      next:
+        specifier: 15.2.4
+        version: 15.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 18.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3
+        version: 3.3.1
+      '@tailwindcss/postcss':
+        specifier: ^4
+        version: 4.0.17
+      '@types/node':
+        specifier: ^20
+        version: 20.17.28
+      '@types/react':
+        specifier: ^19
+        version: 19.0.12
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.0.4(@types/react@19.0.12)
+      eslint:
+        specifier: ^9
+        version: 9.23.0(jiti@2.4.2)
+      eslint-config-next:
+        specifier: 15.2.4
+        version: 15.2.4(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
+      tailwindcss:
+        specifier: ^4
+        version: 4.0.17
+
+  packages/common: {}
 
 packages:
 

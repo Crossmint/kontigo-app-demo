@@ -1,10 +1,13 @@
-import type { CheckoutOptions } from "@/src/types/checkout";
-import { createOrder } from "@/src/utils/api";
+import type {
+  CheckoutOptions,
+  OrderRequest,
+  OrderResponse,
+} from "../types/checkout";
 import {
   checkoutProdBaseUrl,
   checkoutStagingBaseUrl,
   sdkMetadata,
-} from "@/src/utils/config";
+} from "./config";
 
 export const defaultCheckoutOptions: CheckoutOptions = {
   locale: "es-ES",
@@ -52,22 +55,38 @@ export const defaultCheckoutOptions: CheckoutOptions = {
     fiat: {
       enabled: true,
     },
+    method: "checkoutcom-flow",
     defaultMethod: "fiat",
     receiptEmail: "robin@crossmint.com",
   },
 };
 
+// client
+export const createOrder = async (
+  apiUrl: string,
+  orderData: OrderRequest
+): Promise<OrderResponse> => {
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(orderData),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Failed to create order: ${JSON.stringify(errorData)}`);
+  }
+
+  return response.json();
+};
+
 export const generateCheckoutUrl = async (
+  apiUrl: string,
   options: CheckoutOptions
 ): Promise<string> => {
-  const order = await createOrder({
-    recipient: options.recipient,
-    lineItems: options.lineItems,
-    payment: {
-      method: "checkoutcom-flow",
-      receiptEmail: options.payment.receiptEmail,
-    },
-  });
+  const order = await createOrder(apiUrl, options);
 
   const baseUrl =
     order.environment === "production"

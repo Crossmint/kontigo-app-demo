@@ -27,7 +27,7 @@ This repository is organized as a monorepo with two main applications:
 ```bash
 /apps
   /mobile - Expo-based React Native mobile app
-  /api    - Next.js API wrapper service
+  /web    - Next.js API wrapper service
 ```
 
 ## Technical Stack
@@ -110,7 +110,7 @@ This repository is organized as a monorepo with two main applications:
 pnpm install
 
 # Run API
-pnpm api:dev
+pnpm web:dev
 
 # Run mobile app
 pnpm mobile:dev

@@ -1,5 +1,6 @@
 packages:
   - "apps/*"
+  - "packages/*"
 catalog:
   "@crossmint/client-sdk-react-ui": 1.17.0
   "react": 18.3.1
