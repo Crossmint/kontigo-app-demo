@@ -7,4 +7,4 @@ export const checkoutStagingBaseUrl =
 export const sdkMetadata = {
   name: "@crossmint/client-sdk-react-ui",
   version: "1.17.0",
-}; 
+};

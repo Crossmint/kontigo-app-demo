@@ -1,2 +1,15 @@
-export * from './types';
-export * from './utils'; 
+// Export all types explicitly for better TypeScript support
+export type {
+  AppearanceVariables,
+  AppearanceRules,
+  Appearance,
+  Recipient,
+  LineItems,
+  Payment,
+  CheckoutOptions,
+  OrderRequest,
+  OrderResponse,
+} from "./types/checkout";
+
+// Export all functions and constants
+export * from "./utils";
