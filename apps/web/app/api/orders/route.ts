@@ -1,6 +1,6 @@
 import { createOrder } from "@/lib/api";
 import { environment } from "@/lib/config";
-import type { OrderRequest } from "@/lib/types";
+import type { OrderRequest } from "@kontigo/common";
 
 export async function POST(request: Request) {
   try {

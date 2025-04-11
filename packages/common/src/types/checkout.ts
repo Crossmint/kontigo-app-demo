@@ -23,6 +23,7 @@ export type Payment = {
   fiat: {
     enabled: boolean;
   };
+  method: string;
   defaultMethod: "fiat" | "crypto";
   receiptEmail: string;
 };
@@ -36,6 +37,7 @@ export type CheckoutOptions = {
 };
 
 export type OrderRequest = {
+  locale: string;
   recipient: Recipient;
   lineItems: LineItems;
   payment: {

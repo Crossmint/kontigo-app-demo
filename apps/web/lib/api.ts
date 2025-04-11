@@ -1,6 +1,7 @@
 import { apiKey, ordersBaseUrl } from "@/lib/config";
-import type { OrderRequest, OrderResponse } from "@/lib/types";
+import type { OrderRequest, OrderResponse } from "@kontigo/common";
 
+// server 
 export const createOrder = async (
   orderData: OrderRequest
 ): Promise<OrderResponse> => {

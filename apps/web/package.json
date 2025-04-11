@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@kontigo/common": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
     "next": "15.2.4"

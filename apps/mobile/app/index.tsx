@@ -3,13 +3,10 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { WebView } from "react-native-webview";
 import { Ionicons } from "@expo/vector-icons";
-import { userAgent } from "@/src/utils/userAgent";
-import { CheckoutOptions } from "@/src/types/checkout";
-import {
-  defaultCheckoutOptions,
-  generateCheckoutUrl,
-} from "@/src/utils/checkout";
 import { useQuery } from "@tanstack/react-query";
+import { userAgent } from "@/app/utils/userAgent";
+import { apiUrl } from "@/app/utils/config";
+import { defaultCheckoutOptions, generateCheckoutUrl } from "@kontigo/common";
 
 interface AmountViewProps {
   inputAmount: string;
@@ -193,7 +190,7 @@ export default function KontigoApp() {
         return null;
       }
 
-      return generateCheckoutUrl({
+      return generateCheckoutUrl(apiUrl, {
         ...defaultCheckoutOptions,
         lineItems: {
           ...defaultCheckoutOptions.lineItems,
