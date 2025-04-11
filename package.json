@@ -2,7 +2,8 @@
   "name": "crossmint-expo-demo",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "mobile:ios": "pnpm --filter mobile ios",

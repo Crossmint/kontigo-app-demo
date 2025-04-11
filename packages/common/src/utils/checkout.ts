@@ -66,7 +66,7 @@ export const createOrder = async (
   apiUrl: string,
   orderData: OrderRequest
 ): Promise<OrderResponse> => {
-  const response = await fetch(`${apiUrl}orders`, {
+  const response = await fetch(apiUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
