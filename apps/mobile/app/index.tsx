@@ -143,7 +143,11 @@ const AmountView: React.FC<AmountViewProps> = ({
         </View>
       </View>
 
-      <TouchableOpacity style={styles.continueButton} onPress={onContinue}>
+      <TouchableOpacity
+        disabled={!inputAmount || inputAmount === "0"}
+        style={styles.continueButton}
+        onPress={onContinue}
+      >
         <Text style={styles.continueButtonText}>Continuar</Text>
       </TouchableOpacity>
     </View>

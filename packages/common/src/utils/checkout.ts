@@ -54,6 +54,11 @@ export const defaultCheckoutOptions: CheckoutOptions = {
     },
     fiat: {
       enabled: true,
+      allowedMethods: {
+        card: true,
+        applePay: false,
+        googlePay: false,
+      },
     },
     method: "checkoutcom-flow",
     defaultMethod: "fiat",
