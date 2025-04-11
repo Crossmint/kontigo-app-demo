@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "crossmint-expo-demo",
-    "slug": "crossmint-expo-demo",
+    "name": "kontigo-app-demo",
+    "slug": "kontigo-app-demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "crossmint-expo-demo",
+    "scheme": "kontigo-app-demo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "bundleIdentifier": "com.crossmint.expo-demo",
+      "bundleIdentifier": "com.kontigo.app-demo",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.crossmint.expo.demo",
+      "package": "com.kontigo.app-demo",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -44,7 +44,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "6e5f5e4e-dbdf-41f7-931e-beae6931593f"
+        "projectId": "38d5e21a-2d5e-40f4-b0c9-610d02832fc5"
       }
     },
     "owner": "crossmint"
