@@ -10,10 +10,13 @@
     "newArchEnabled": true,
     "ios": {
       "bundleIdentifier": "com.kontigo.app-demo",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
-      "package": "com.kontigo.app-demo",
+      "package": "com.crossmint.kontigoappdemo",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
