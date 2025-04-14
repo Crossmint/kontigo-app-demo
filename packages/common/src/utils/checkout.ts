@@ -56,7 +56,7 @@ export const defaultCheckoutOptions: CheckoutOptions = {
       enabled: true,
       allowedMethods: {
         card: true,
-        applePay: false,
+        applePay: true,
         googlePay: false,
       },
     },
