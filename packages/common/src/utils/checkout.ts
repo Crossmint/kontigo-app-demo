@@ -57,7 +57,7 @@ export const defaultCheckoutOptions: CheckoutOptions = {
       allowedMethods: {
         card: true,
         applePay: true,
-        googlePay: false,
+        googlePay: true,
       },
     },
     method: "checkoutcom-flow",
